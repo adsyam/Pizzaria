@@ -33,7 +33,7 @@ const router = createBrowserRouter([
         action: createOrderAction, //Form submission
       },
       {
-        path: "/order/:id",
+        path: "/order/:orderId",
         element: <Order />,
         loader: orderLoader,
         errorElement: <Error />,
