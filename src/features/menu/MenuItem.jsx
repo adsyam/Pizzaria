@@ -5,12 +5,26 @@ import DeleteItem from "../cart/DeleteItem";
 import UpdateQuantity from "../cart/UpdateQuantity";
 import { addItem, getCurrentQuantityById } from "../cart/cartSlice";
 
+
+/**
+ * Renders a menu item for a pizza.
+ * 
+ * @param {Object} pizza - The pizza object containing information about the pizza.
+ * @param {string} pizza.id - The ID of the pizza.
+ * @param {string} pizza.name - The name of the pizza.
+ * @param {number} pizza.unitPrice - The unit price of the pizza.
+ * @param {string[]} pizza.ingredients - The ingredients of the pizza.
+ * @param {boolean} pizza.soldOut - Indicates if the pizza is sold out.
+ * @param {string} pizza.imageUrl - The URL of the pizza's image.
+ */
 function MenuItem({ pizza }) {
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
   const dispatch = useDispatch();
 
+  // Get the current quantity of the pizza from the Redux store
   const currentQuantity = useSelector(getCurrentQuantityById(id));
 
+  // Check if the pizza is already in the cart
   const isInCart = currentQuantity > 0;
 
   function handleAddToCart() {
@@ -22,6 +36,7 @@ function MenuItem({ pizza }) {
       totalPrice: unitPrice * 1,
     };
 
+    // Dispatch the 'addItem' action to add the item to the cart
     dispatch(addItem(newItem));
   }
 
